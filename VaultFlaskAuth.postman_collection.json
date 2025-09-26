@@ -1,0 +1,44 @@
+"info": {
+    "name": "Vault-Flask-Auth",
+    "_postman_id": "vault-flask-auth",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Signup",
+      "request": {
+        "method": "POST",
+        "header": [{"key":"Content-Type","value":"application/json"}],
+        "url": {"raw":"http://localhost:5000/signup","protocol":"http","host":["localhost"],"port":"5000","path":["signup"]},
+        "body": {"mode":"raw","raw":"{\"username\":\"alice\",\"password\":\"secret123\"}"}
+      }
+    },
+    {
+      "name": "Signin",
+      "request": {
+        "method": "POST",
+        "header": [{"key":"Content-Type","value":"application/json"}],
+        "url": {"raw":"http://localhost:5000/signin","protocol":"http","host":["localhost"],"port":"5000","path":["signin"]},
+        "body": {"mode":"raw","raw":"{\"username\":\"alice\",\"password\":\"secret123\"}"}
+      }
+    },
+    {
+      "name": "Refresh",
+      "request": {
+        "method": "POST",
+        "header": [{"key":"Content-Type","value":"application/json"}],
+        "url": {"raw":"http://localhost:5000/refresh","protocol":"http","host":["localhost"],"port":"5000","path":["refresh"]},
+        "body": {"mode":"raw","raw":"{\"refresh_token\":\"<paste_refresh_token_here>\"}"}
+      }
+    },
+    {
+      "name": "Logout",
+      "request": {
+        "method": "POST",
+        "header": [{"key":"Content-Type","value":"application/json"}],
+        "url": {"raw":"http://localhost:5000/logout","protocol":"http","host":["localhost"],"port":"5000","path":["logout"]},
+        "body": {"mode":"raw","raw":"{\"refresh_token\":\"<paste_refresh_token_here>\"}"}
+      }
+    }
+  ]
+}
