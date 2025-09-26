@@ -1,0 +1,53 @@
+version: "3.8"
+services:
+  vault:
+    image: hashicorp/vault:1.15.6
+    container_name: vault
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - ./vault/data:/vault/file
+      - ./vault/config:/vault/config
+    ports:
+      - "8200:8200"
+    environment:
+      VAULT_LOCAL_CONFIG: >
+        {
+          "backend": {
+            "file": {"path": "/vault/file"}
+          },
+          "listener": [{
+            "tcp": {
+              "address": "0.0.0.0:8200",
+              "tls_disable": 1
+            }
+          }],
+          "ui": true
+        }
+    command: "server"
+    restart: unless-stopped
+
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--requirepass", "redispassword"]
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+
+  auth-api:
+    build: .
+    container_name: auth-api
+    depends_on:
+      - vault
+      - redis
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    restart: unless-stopped
+
+volumes:
+  redis-data:
